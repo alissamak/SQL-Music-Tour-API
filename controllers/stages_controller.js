@@ -11,6 +11,7 @@ stages.get('/', async (req, res) => {
             where: {
                 stage_name: {[Op.like]: `%${req.query.stage_name ? req.query.stage_name : ''}%`}
             },
+            offset: 1,
             limit: 2
         })
         res.status(200).json(foundStages)
