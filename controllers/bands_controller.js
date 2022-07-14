@@ -1,8 +1,7 @@
 const bands = require('express').Router();
 const db = require('../models');
-const {Band, MeetGreet, Event, setTime} = db;
+const {Band, MeetGreet, Event, SetTime} = db;
 const {Op} = require('sequelize');
-const meetgreet = require('../models/meetgreet');
 
 //FIND ALL BANDS
 bands.get('/', async (req, res) => {
@@ -22,33 +21,34 @@ bands.get('/', async (req, res) => {
 
 //FIND SPECIFIC BAND
 bands.get('/:name', async (req, res) => {
-    try{
+    try {
         const foundBand = await Band.findOne({
-            where: { name: req.params.name},
+            where: { name: req.params.name },
             include: [
                 {
                     model: MeetGreet,
-                    as: 'meet_greets',
+                    as: "meet_greets",
                     include: {
-                        model: Event, 
-                        as: 'event', 
-                        where: {name: {[Op.like]: `%${req.query.event ? req.query.event : ''}%`}}
+                        model: Event,
+                        as: "event",
+                        where: { name: { [Op.like]: `%${req.query.event ? req.query.event : ''}%` } }
                     }
                 },
                 {
-                    model: setTime,
-                    as: 'set_times',
+                    model: SetTime,
+                    as: "set_times",
                     include: {
-                        model: Event, 
-                        as: 'event', 
-                        where: {name: {[Op.like]: `%${req.query.event ? req.query.event : ''}%`}}
+                        model: Event,
+                        as: "event",
+                        where: { name: { [Op.like]: `%${req.query.event ? req.query.event : ''}%` } }
                     }
-                }    
+                }
             ]
         })
-        res.status(500).json(foundBand)
-    }
-    catch(err){
+        res.status(200).json(foundBand)
+    } 
+    catch (err) {
+        console.log('ERrrr we hit!!', err)
         res.status(500).json(err)
     }
 })
