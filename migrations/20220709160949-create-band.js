@@ -19,10 +19,12 @@ module.exports = {
       available_start_time: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.NOW
       },
       end_time: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.NOW
       },
     })
   },

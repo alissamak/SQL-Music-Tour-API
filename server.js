@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 //     storage: process.env.PG_URI,
 //     dialect: 'postgres',
 //     username: 'postgres',
-//     password: 'Jackson123!'
+//     password: 'password'
 // })
 // const sequelize = new Sequelize(process.env.PG_URI)
 
